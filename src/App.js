@@ -8,7 +8,6 @@ import UpdateTodoForm from "./updatetodoform";
 function App() {
   const [todos, setTodos] = useState([]);
   const [selectedTodo, setSelectedTodo] = useState(null);
-  const [showUpdateForm, setShowUpdateForm] = useState(false);
 
   useEffect(() => {
     // Fetch todos from the backend when the component mounts
@@ -23,7 +22,7 @@ function App() {
 
   const addTodo = (todoData) => {
     // Create a new todo and send it to the backend
-    axios.post("http://localhost:8000/api/todos", todoData)
+    axios.post("https://todo-backend-two-ashy.vercel.app/api/todos", todoData)
     .then(response => {
       setTodos([...todos, response.data]);
     })
@@ -42,7 +41,7 @@ function App() {
 
   const handleUpdate = (updatedTodoData) => {
     // Update a todo
-    axios.put(`http://localhost:8000/api/todos/${selectedTodo.task_id}`, updatedTodoData)
+    axios.put(`https://todo-backend-two-ashy.vercel.app/api/todos/${selectedTodo.task_id}`, updatedTodoData)
       .then(response => {
         const updatedTodos = todos.map(todo => {
           if (todo.task_id === selectedTodo.task_id) {
@@ -53,7 +52,6 @@ function App() {
         });
         setTodos(updatedTodos);
         setSelectedTodo(null); // Close the update form
-        setShowUpdateForm(false);
       })
       .catch(error => {
         console.error("Error updating todo:", error);
@@ -62,11 +60,10 @@ function App() {
 
   const handleDelete = (id) => {
     // Delete a todo
-    axios.delete(`http://localhost:8000/api/todos/${id}`)
+    axios.delete(`https://todo-backend-two-ashy.vercel.app/api/todos/${id}`)
       .then(response => {
         setTodos(todos.filter(todo => todo.task_id !== id));
         setSelectedTodo(null); // Close the update form
-        setShowUpdateForm(false);
       })
       .catch(error => {
         console.error("Error deleting todo:", error);
@@ -110,5 +107,5 @@ function App() {
     </div>
   );
 }
- 
+
 export default App;
