@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     // Fetch todos from the backend when the component mounts
-    axios.get("http://localhost:8000/api/todos")
+    axios.get("https://todo-backend-two-ashy.vercel.app/api/todos")
       .then(response => {
         setTodos(response.data);
       })
